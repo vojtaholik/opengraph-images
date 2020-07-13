@@ -31,9 +31,9 @@ const Design = ({props}) => {
 
   React.useEffect(() => {
     setAppState({loading: true})
-    const apiUrl = `https://egghead.io/api/v1/lessons/${window.title || title}`
+    const talks = `https://egghead.io/api/v1/lessons/${window.title || title}`
 
-    fetch(apiUrl)
+    fetch(talks)
       .then((res) => res.json())
       .then((talk) => {
         setAppState({loading: false, talk: talk})
