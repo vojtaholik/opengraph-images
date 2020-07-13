@@ -1,4 +1,4 @@
-const qs = require('querystring')
+const qs = require("querystring")
 
 exports.handler = async function (event, ctx) {
   const {queryStringParameters} = event
@@ -6,16 +6,16 @@ exports.handler = async function (event, ctx) {
     const imageUrl = `https://res.cloudinary.com/${
       process.env.CLOUD_NAME
     }/image/fetch/${encodeURIComponent(
-      `https://competent-goodall-d71d0d.netlify.com/.netlify/functions/gen-opengraph-image?${qs.stringify(
-        queryStringParameters,
-      )}`,
+      `https://objective-turing-44747b.netlify.app/.netlify/functions/gen-opengraph-image?${qs.stringify(
+        queryStringParameters
+      )}`
     )}`
     return {
       statusCode: 302,
       headers: {
         Location: imageUrl,
       },
-      body: '',
+      body: "",
     }
   } catch (e) {
     console.log(e)
