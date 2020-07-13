@@ -5,6 +5,16 @@ import {render} from "react-dom"
 import Twemoji from "react-twemoji"
 
 function App() {
+  function imageBySlug(slug) {
+    switch (slug) {
+      case "react-eggheadtalks-setting-up-feature-flags-with-react":
+        return "https://res.cloudinary.com/dg3gyk0gu/image/upload/v1594636894/egghead%20talks/react-eggheadtalks-setting-up-feature-flags-with-react.png"
+      case "react-native-eggheadtalks-lessons-learned-from-building-react-native-apps":
+        return "https://res.cloudinary.com/dg3gyk0gu/image/upload/v1594636891/egghead%20talks/react-native-eggheadtalks-lessons-learned-from-building-react-native-apps.png"
+      default:
+        return null
+    }
+  }
   return (
     <div
       css={{
@@ -35,7 +45,7 @@ function App() {
 
       <h1
         css={{
-          color: "#E9F5FB",
+          color: "red",
           height: "100%",
           textAlign: "center",
         }}
@@ -49,9 +59,10 @@ function App() {
             lineHeight: 1,
           }}
         >
-          <Twemoji options={{className: "emoji", folder: "svg", ext: ".svg"}}>
+          {/* <Twemoji options={{className: "emoji", folder: "svg", ext: ".svg"}}>
             {window.title}
-          </Twemoji>
+          </Twemoji> */}
+          <img src={imageBySlug(window.title)} />
         </Textfit>
       </h1>
     </div>
