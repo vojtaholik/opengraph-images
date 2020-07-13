@@ -2902,7 +2902,7 @@
   exports.default = _Textfit2.default;
   });
 
-  var Textfit$1 = unwrapExports(lib);
+  unwrapExports(lib);
   var lib_1 = lib.Textfit;
 
   var scheduler_production_min = createCommonjsModule(function (module, exports) {
@@ -5698,104 +5698,495 @@
   });
   });
 
-  var Twemoji = unwrapExports(Twemoji_1);
+  unwrapExports(Twemoji_1);
+
+  function _slicedToArray(arr, i) {
+    return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+  }
+
+  function _arrayWithHoles(arr) {
+    if (Array.isArray(arr)) return arr;
+  }
+
+  function _iterableToArrayLimit(arr, i) {
+    if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+    var _e = undefined;
+
+    try {
+      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+        _arr.push(_s.value);
+
+        if (i && _arr.length === i) break;
+      }
+    } catch (err) {
+      _d = true;
+      _e = err;
+    } finally {
+      try {
+        if (!_n && _i["return"] != null) _i["return"]();
+      } finally {
+        if (_d) throw _e;
+      }
+    }
+
+    return _arr;
+  }
+
+  function _unsupportedIterableToArray(o, minLen) {
+    if (!o) return;
+    if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(o);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+  }
+
+  function _arrayLikeToArray(arr, len) {
+    if (len == null || len > arr.length) len = arr.length;
+
+    for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+    return arr2;
+  }
+
+  function _nonIterableRest() {
+    throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+
+  /** `Object#toString` result references. */
+  var symbolTag$1 = '[object Symbol]';
+
+  /**
+   * Checks if `value` is classified as a `Symbol` primitive or object.
+   *
+   * @static
+   * @memberOf _
+   * @since 4.0.0
+   * @category Lang
+   * @param {*} value The value to check.
+   * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+   * @example
+   *
+   * _.isSymbol(Symbol.iterator);
+   * // => true
+   *
+   * _.isSymbol('abc');
+   * // => false
+   */
+  function isSymbol(value) {
+    return typeof value == 'symbol' ||
+      (isObjectLike_1(value) && _baseGetTag(value) == symbolTag$1);
+  }
+
+  var isSymbol_1 = isSymbol;
+
+  /** Used to match property names within property paths. */
+  var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
+      reIsPlainProp = /^\w*$/;
+
+  /**
+   * Checks if `value` is a property name and not a property path.
+   *
+   * @private
+   * @param {*} value The value to check.
+   * @param {Object} [object] The object to query keys on.
+   * @returns {boolean} Returns `true` if `value` is a property name, else `false`.
+   */
+  function isKey(value, object) {
+    if (isArray_1(value)) {
+      return false;
+    }
+    var type = typeof value;
+    if (type == 'number' || type == 'symbol' || type == 'boolean' ||
+        value == null || isSymbol_1(value)) {
+      return true;
+    }
+    return reIsPlainProp.test(value) || !reIsDeepProp.test(value) ||
+      (object != null && value in Object(object));
+  }
+
+  var _isKey = isKey;
+
+  /** Error message constants. */
+  var FUNC_ERROR_TEXT = 'Expected a function';
+
+  /**
+   * Creates a function that memoizes the result of `func`. If `resolver` is
+   * provided, it determines the cache key for storing the result based on the
+   * arguments provided to the memoized function. By default, the first argument
+   * provided to the memoized function is used as the map cache key. The `func`
+   * is invoked with the `this` binding of the memoized function.
+   *
+   * **Note:** The cache is exposed as the `cache` property on the memoized
+   * function. Its creation may be customized by replacing the `_.memoize.Cache`
+   * constructor with one whose instances implement the
+   * [`Map`](http://ecma-international.org/ecma-262/7.0/#sec-properties-of-the-map-prototype-object)
+   * method interface of `clear`, `delete`, `get`, `has`, and `set`.
+   *
+   * @static
+   * @memberOf _
+   * @since 0.1.0
+   * @category Function
+   * @param {Function} func The function to have its output memoized.
+   * @param {Function} [resolver] The function to resolve the cache key.
+   * @returns {Function} Returns the new memoized function.
+   * @example
+   *
+   * var object = { 'a': 1, 'b': 2 };
+   * var other = { 'c': 3, 'd': 4 };
+   *
+   * var values = _.memoize(_.values);
+   * values(object);
+   * // => [1, 2]
+   *
+   * values(other);
+   * // => [3, 4]
+   *
+   * object.a = 2;
+   * values(object);
+   * // => [1, 2]
+   *
+   * // Modify the result cache.
+   * values.cache.set(object, ['a', 'b']);
+   * values(object);
+   * // => ['a', 'b']
+   *
+   * // Replace `_.memoize.Cache`.
+   * _.memoize.Cache = WeakMap;
+   */
+  function memoize$1(func, resolver) {
+    if (typeof func != 'function' || (resolver != null && typeof resolver != 'function')) {
+      throw new TypeError(FUNC_ERROR_TEXT);
+    }
+    var memoized = function() {
+      var args = arguments,
+          key = resolver ? resolver.apply(this, args) : args[0],
+          cache = memoized.cache;
+
+      if (cache.has(key)) {
+        return cache.get(key);
+      }
+      var result = func.apply(this, args);
+      memoized.cache = cache.set(key, result) || cache;
+      return result;
+    };
+    memoized.cache = new (memoize$1.Cache || _MapCache);
+    return memoized;
+  }
+
+  // Expose `MapCache`.
+  memoize$1.Cache = _MapCache;
+
+  var memoize_1 = memoize$1;
+
+  /** Used as the maximum memoize cache size. */
+  var MAX_MEMOIZE_SIZE = 500;
+
+  /**
+   * A specialized version of `_.memoize` which clears the memoized function's
+   * cache when it exceeds `MAX_MEMOIZE_SIZE`.
+   *
+   * @private
+   * @param {Function} func The function to have its output memoized.
+   * @returns {Function} Returns the new memoized function.
+   */
+  function memoizeCapped(func) {
+    var result = memoize_1(func, function(key) {
+      if (cache.size === MAX_MEMOIZE_SIZE) {
+        cache.clear();
+      }
+      return key;
+    });
+
+    var cache = result.cache;
+    return result;
+  }
+
+  var _memoizeCapped = memoizeCapped;
+
+  /** Used to match property names within property paths. */
+  var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
+
+  /** Used to match backslashes in property paths. */
+  var reEscapeChar = /\\(\\)?/g;
+
+  /**
+   * Converts `string` to a property path array.
+   *
+   * @private
+   * @param {string} string The string to convert.
+   * @returns {Array} Returns the property path array.
+   */
+  var stringToPath = _memoizeCapped(function(string) {
+    var result = [];
+    if (string.charCodeAt(0) === 46 /* . */) {
+      result.push('');
+    }
+    string.replace(rePropName, function(match, number, quote, subString) {
+      result.push(quote ? subString.replace(reEscapeChar, '$1') : (number || match));
+    });
+    return result;
+  });
+
+  var _stringToPath = stringToPath;
+
+  /**
+   * A specialized version of `_.map` for arrays without support for iteratee
+   * shorthands.
+   *
+   * @private
+   * @param {Array} [array] The array to iterate over.
+   * @param {Function} iteratee The function invoked per iteration.
+   * @returns {Array} Returns the new mapped array.
+   */
+  function arrayMap(array, iteratee) {
+    var index = -1,
+        length = array == null ? 0 : array.length,
+        result = Array(length);
+
+    while (++index < length) {
+      result[index] = iteratee(array[index], index, array);
+    }
+    return result;
+  }
+
+  var _arrayMap = arrayMap;
+
+  /** Used as references for various `Number` constants. */
+  var INFINITY = 1 / 0;
+
+  /** Used to convert symbols to primitives and strings. */
+  var symbolProto$1 = _Symbol ? _Symbol.prototype : undefined,
+      symbolToString = symbolProto$1 ? symbolProto$1.toString : undefined;
+
+  /**
+   * The base implementation of `_.toString` which doesn't convert nullish
+   * values to empty strings.
+   *
+   * @private
+   * @param {*} value The value to process.
+   * @returns {string} Returns the string.
+   */
+  function baseToString(value) {
+    // Exit early for strings to avoid a performance hit in some environments.
+    if (typeof value == 'string') {
+      return value;
+    }
+    if (isArray_1(value)) {
+      // Recursively convert values (susceptible to call stack limits).
+      return _arrayMap(value, baseToString) + '';
+    }
+    if (isSymbol_1(value)) {
+      return symbolToString ? symbolToString.call(value) : '';
+    }
+    var result = (value + '');
+    return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
+  }
+
+  var _baseToString = baseToString;
+
+  /**
+   * Converts `value` to a string. An empty string is returned for `null`
+   * and `undefined` values. The sign of `-0` is preserved.
+   *
+   * @static
+   * @memberOf _
+   * @since 4.0.0
+   * @category Lang
+   * @param {*} value The value to convert.
+   * @returns {string} Returns the converted string.
+   * @example
+   *
+   * _.toString(null);
+   * // => ''
+   *
+   * _.toString(-0);
+   * // => '-0'
+   *
+   * _.toString([1, 2, 3]);
+   * // => '1,2,3'
+   */
+  function toString(value) {
+    return value == null ? '' : _baseToString(value);
+  }
+
+  var toString_1 = toString;
+
+  /**
+   * Casts `value` to a path array if it's not one.
+   *
+   * @private
+   * @param {*} value The value to inspect.
+   * @param {Object} [object] The object to query keys on.
+   * @returns {Array} Returns the cast property path array.
+   */
+  function castPath(value, object) {
+    if (isArray_1(value)) {
+      return value;
+    }
+    return _isKey(value, object) ? [value] : _stringToPath(toString_1(value));
+  }
+
+  var _castPath = castPath;
+
+  /** Used as references for various `Number` constants. */
+  var INFINITY$1 = 1 / 0;
+
+  /**
+   * Converts `value` to a string key if it's not a string or symbol.
+   *
+   * @private
+   * @param {*} value The value to inspect.
+   * @returns {string|symbol} Returns the key.
+   */
+  function toKey(value) {
+    if (typeof value == 'string' || isSymbol_1(value)) {
+      return value;
+    }
+    var result = (value + '');
+    return (result == '0' && (1 / value) == -INFINITY$1) ? '-0' : result;
+  }
+
+  var _toKey = toKey;
+
+  /**
+   * The base implementation of `_.get` without support for default values.
+   *
+   * @private
+   * @param {Object} object The object to query.
+   * @param {Array|string} path The path of the property to get.
+   * @returns {*} Returns the resolved value.
+   */
+  function baseGet(object, path) {
+    path = _castPath(path, object);
+
+    var index = 0,
+        length = path.length;
+
+    while (object != null && index < length) {
+      object = object[_toKey(path[index++])];
+    }
+    return (index && index == length) ? object : undefined;
+  }
+
+  var _baseGet = baseGet;
+
+  /**
+   * Gets the value at `path` of `object`. If the resolved value is
+   * `undefined`, the `defaultValue` is returned in its place.
+   *
+   * @static
+   * @memberOf _
+   * @since 3.7.0
+   * @category Object
+   * @param {Object} object The object to query.
+   * @param {Array|string} path The path of the property to get.
+   * @param {*} [defaultValue] The value returned for `undefined` resolved values.
+   * @returns {*} Returns the resolved value.
+   * @example
+   *
+   * var object = { 'a': [{ 'b': { 'c': 3 } }] };
+   *
+   * _.get(object, 'a[0].b.c');
+   * // => 3
+   *
+   * _.get(object, ['a', '0', 'b', 'c']);
+   * // => 3
+   *
+   * _.get(object, 'a.b.c', 'default');
+   * // => 'default'
+   */
+  function get(object, path, defaultValue) {
+    var result = object == null ? undefined : _baseGet(object, path);
+    return result === undefined ? defaultValue : result;
+  }
+
+  var get_1 = get;
+
+  var Design = function Design(_ref) {
+    var props = _ref.props;
+    // url params to develop & test locally
+    var urlParams = new URLSearchParams(window.location.search);
+    var title = urlParams.get("title"); //   console.log(urlParams.get("title"))
+
+    function imageBySlug(slug) {
+      switch (slug) {
+        case "react-eggheadtalks-setting-up-feature-flags-with-react":
+          return "https://res.cloudinary.com/dg3gyk0gu/image/upload/v1594636894/egghead%20talks/react-eggheadtalks-setting-up-feature-flags-with-react.png";
+
+        case "react-native-eggheadtalks-lessons-learned-from-building-react-native-apps":
+          return "https://res.cloudinary.com/dg3gyk0gu/image/upload/v1594637550/egghead%20talks/react-native-eggheadtalks-lessons-learned-from-building-react-native-apps.png";
+
+        default:
+          return null;
+      }
+    }
+
+    var _React$useState = react.useState({
+      loading: false,
+      talk: null
+    }),
+        _React$useState2 = _slicedToArray(_React$useState, 2),
+        appState = _React$useState2[0],
+        setAppState = _React$useState2[1];
+
+    react.useEffect(function () {
+      setAppState({
+        loading: true
+      });
+      var talks = "https://egghead.io/api/v1/lessons/".concat(window.title || title);
+      fetch(talks).then(function (res) {
+        return res.json();
+      }).then(function (talk) {
+        setAppState({
+          loading: false,
+          talk: talk
+        });
+      });
+    }, [setAppState]);
+    var talkUrl = get_1(appState.talk, "http_url");
+    return jsx("div", {
+      css: {
+        width: 1280,
+        height: 720,
+        background: "rgb(255, 255, 255)",
+        position: "absolute",
+        display: "flex",
+        overflow: "hidden"
+      }
+    }, jsx(Global, {
+      styles: {
+        "*": {
+          boxSizing: "border-box",
+          margin: 0,
+          padding: 0,
+          fontFamily: "system-ui"
+        },
+        ".emoji": {
+          height: "1em",
+          width: "1em",
+          margin: "0 .05em 0 .1em",
+          verticalAlign: "-0.1em"
+        }
+      }
+    }), jsx("img", {
+      style: {
+        width: "100%",
+        position: "absolute"
+      },
+      src: imageBySlug(window.title || title)
+    }));
+  };
 
   /** @jsx jsx */
 
   function App() {
-    return jsx("div", {
-      css: {
-        width: 1200,
-        height: 630,
-        background: "rgb(255, 20, 147)",
-        position: 'absolute',
-        display: 'flex',
-        overflow: 'hidden'
-      }
-    }, jsx(Global, {
-      styles: {
-        '*': {
-          boxSizing: 'border-box',
-          margin: 0,
-          padding: 0,
-          fontFamily: 'system-ui'
-        },
-        '.emoji': {
-          height: '1em',
-          width: '1em',
-          margin: '0 .05em 0 .1em',
-          verticalAlign: '-0.1em'
-        }
-      }
-    }), jsx("div", {
-      css: {
-        background: '#041016',
-        margin: '40px',
-        display: 'flex',
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'end',
-        borderRadius: 10,
-        padding: '8rem',
-        boxShadow: "inset 3px 3px 21px 2px rgba(251,17,146,1)"
-      }
-    }, jsx("h1", {
-      css: {
-        color: '#E9F5FB',
-        height: '100%',
-        textAlign: 'center'
-      }
-    }, jsx(Textfit$1, {
-      max: 256,
-      min: 24,
-      style: {
-        minHeight: '80%',
-        maxHeight: '80%',
-        lineHeight: 1
-      }
-    }, jsx(Twemoji, {
-      options: {
-        className: 'emoji',
-        folder: 'svg',
-        ext: '.svg'
-      }
-    }, window.title))), jsx("div", {
-      css: {
-        color: 'white',
-        display: 'flex',
-        alignItems: 'right',
-        justifyContent: 'space-between',
-        fontSize: 36,
-        margin: '-5rem',
-        paddingTop: '3rem'
-      }
-    }, jsx("div", null), jsx("div", {
-      css: {
-        width: '90px',
-        height: '90px',
-        paddingTop: '2rem'
-      }
-    }, jsx("svg", {
-      xmlns: "http://www.w3.org/2000/svg",
-      viewBox: "0 0 488.38 488.18"
-    }, jsx("title", null, "jh_logo"), jsx("path", {
-      fill: "#000000",
-      stroke: "none",
-      d: "M224.25,13.18c-56.5,8-106.6,33.5-145.3,74-36.6,38.3-60.2,89.1-66.3,142.4-1.7,15.7-.7,51.6,2,66.6,9.2,51.5,31.9,95.7,67.8,131.9a229.39,229.39,0,0,0,64.3,46.5,249.89,249.89,0,0,0,75.5,23.7c15.9,2.4,51.1,2.4,66.8.1,43.6-6.6,80.3-21.9,114.7-47.6,12.9-9.7,33.5-29.6,43-41.6,28.6-36.3,45.7-76.9,52.1-123.5,2-14.2,1.7-48.8-.5-63.5-10.5-70.2-49.1-131.5-107-170-28.4-18.8-59.8-31.3-94.7-37.6C280.65,11.78,240.05,11,224.25,13.18Z",
-      transform: "translate(-11.81 -11.91)"
-    }), jsx("path", {
-      fill: "#ffffff",
-      stroke: "none",
-      d: "M314.55,316l-.3,54.1-42.5,3.8c-23.4,2-43.5,3.7-44.7,3.8h-2.3V120.18l43.8-3.8c24-2.1,44.3-3.8,45-3.7.9,0,1.2,9.9,1.2,45.9v46l5.3-.5c2.8-.3,8.8-.8,13.2-1.2l8-.7.3-46.3.2-46.2,2.8-.1c1.5,0,19.1-1.5,39.2-3.3s39.1-3.4,42.3-3.5l5.7-.1v256.9l-4.2.5c-2.4.4-20.3,2-39.8,3.6s-37.9,3.3-40.7,3.6l-5.3.6V259.38l-7.2.7c-4,.3-10.1.9-13.5,1.2l-6.3.6",
-      transform: "translate(-11.81 -11.91)"
-    }), jsx("path", {
-      fill: "#ffffff",
-      stroke: "none",
-      d: "M185.55,123.78l4.2-.1v107.7c0,65.3-.4,110.5-1,114.6-1.1,7.7-2.6,11-8.1,18.3-7.6,10.3-20.9,16.6-43,20.3-9.6,1.7-63.4,7.1-70,7.1-1.8,0-1.9-1-1.9-22.5v-22.5h5.5c12.1,0,22.9-4.2,26.2-10.3,1.7-3,1.8-10.3,2.3-104.2l.5-101,40.5-3.6",
-      transform: "translate(-11.81 -11.91)"
-    }))))));
+    return jsx(Design, null);
   }
 
-  reactDom_6(jsx(App, null), document.getElementById('corgi'));
+  reactDom_6(jsx(App, null), document.getElementById("corgi"));
 
 }());

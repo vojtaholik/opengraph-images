@@ -10,7 +10,7 @@ import get from "lodash/get"
 const Design = ({props}) => {
   // url params to develop & test locally
   const urlParams = new URLSearchParams(window.location.search)
-  const title = urlParams.get("title")
+  const slug = urlParams.get("slug")
 
   //   console.log(urlParams.get("title"))
   function imageBySlug(slug) {
@@ -31,7 +31,7 @@ const Design = ({props}) => {
 
   React.useEffect(() => {
     setAppState({loading: true})
-    const talks = `https://egghead.io/api/v1/lessons/${window.title || title}`
+    const talks = `https://egghead.io/api/v1/lessons/${window.slug || slug}`
 
     fetch(talks)
       .then((res) => res.json())
@@ -40,9 +40,7 @@ const Design = ({props}) => {
       })
   }, [setAppState])
 
-  //   const {http_url} = appState.talk && appState.talk
   const talkUrl = get(appState.talk, "http_url")
-  console.log(talkUrl)
 
   return (
     <div
@@ -53,8 +51,6 @@ const Design = ({props}) => {
         position: "absolute",
         display: "flex",
         overflow: "hidden",
-        // left: 0,
-        // top: 0,
       }}
     >
       <Global
@@ -73,11 +69,11 @@ const Design = ({props}) => {
           },
         }}
       />
-
       <img
         style={{width: "100%", position: "absolute"}}
-        src={imageBySlug(window.title || title)}
+        src={imageBySlug(window.slug || slug)}
       />
+
       <h1
         css={{
           color: "white",
@@ -96,8 +92,7 @@ const Design = ({props}) => {
           }}
         >
           <Twemoji options={{className: "emoji", folder: "svg", ext: ".svg"}}>
-            {talkUrl}
-            {window.title || title}
+            {window.slug || slug}
           </Twemoji>
         </Textfit>
       </h1>
