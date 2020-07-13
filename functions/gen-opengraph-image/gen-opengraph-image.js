@@ -7,8 +7,12 @@ exports.handler = async function (event, ctx) {
   const context = await browser._defaultContext
   const page = await context.newPage()
   page.setViewportSize({
-    width: 1200,
-    height: 630,
+    // video poster
+    width: 1280,
+    height: 720,
+    // og image
+    // width: 1200,
+    // height: 630,
   })
   await page.setContent(`<!DOCTYPE html>
   <html>

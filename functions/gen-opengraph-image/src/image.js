@@ -20,7 +20,7 @@ function App() {
       css={{
         width: 1280,
         height: 720,
-        background: `rgb(255, 255, 255)`,
+        background: "rgb(255, 255, 255)",
         position: "absolute",
         display: "flex",
         overflow: "hidden",
@@ -45,7 +45,7 @@ function App() {
 
       <h1
         css={{
-          color: "red",
+          color: "black",
           height: "100%",
           textAlign: "center",
         }}
