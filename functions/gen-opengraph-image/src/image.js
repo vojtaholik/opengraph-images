@@ -10,7 +10,7 @@ function App() {
       case "react-eggheadtalks-setting-up-feature-flags-with-react":
         return "https://res.cloudinary.com/dg3gyk0gu/image/upload/v1594636894/egghead%20talks/react-eggheadtalks-setting-up-feature-flags-with-react.png"
       case "react-native-eggheadtalks-lessons-learned-from-building-react-native-apps":
-        return "https://res.cloudinary.com/dg3gyk0gu/image/upload/v1594636891/egghead%20talks/react-native-eggheadtalks-lessons-learned-from-building-react-native-apps.png"
+        return "https://res.cloudinary.com/dg3gyk0gu/image/upload/v1594637550/egghead%20talks/react-native-eggheadtalks-lessons-learned-from-building-react-native-apps.png"
       default:
         return null
     }
