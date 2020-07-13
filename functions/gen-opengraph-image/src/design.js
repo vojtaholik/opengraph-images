@@ -92,9 +92,7 @@ const Design = ({props}) => {
           }}
         >
           <Twemoji options={{className: "emoji", folder: "svg", ext: ".svg"}}>
-            {!imageBySlug(window.slug || slug)
-              ? talkTitle
-              : window.slug || slug}
+            {!imageBySlug(window.slug || slug) ? talkTitle : null}
           </Twemoji>
         </Textfit>
       </h1>
