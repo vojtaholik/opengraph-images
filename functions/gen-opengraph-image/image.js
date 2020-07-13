@@ -2902,7 +2902,7 @@
   exports.default = _Textfit2.default;
   });
 
-  unwrapExports(lib);
+  var Textfit$1 = unwrapExports(lib);
   var lib_1 = lib.Textfit;
 
   var scheduler_production_min = createCommonjsModule(function (module, exports) {
@@ -5698,7 +5698,7 @@
   });
   });
 
-  unwrapExports(Twemoji_1);
+  var Twemoji = unwrapExports(Twemoji_1);
 
   function _slicedToArray(arr, i) {
     return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
@@ -6110,7 +6110,7 @@
     var props = _ref.props;
     // url params to develop & test locally
     var urlParams = new URLSearchParams(window.location.search);
-    var title = urlParams.get("title"); //   console.log(urlParams.get("title"))
+    var slug = urlParams.get("slug"); //   console.log(urlParams.get("title"))
 
     function imageBySlug(slug) {
       switch (slug) {
@@ -6137,7 +6137,7 @@
       setAppState({
         loading: true
       });
-      var talks = "https://egghead.io/api/v1/lessons/".concat(window.title || title);
+      var talks = "https://egghead.io/api/v1/lessons/".concat(window.slug || slug);
       fetch(talks).then(function (res) {
         return res.json();
       }).then(function (talk) {
@@ -6147,7 +6147,7 @@
         });
       });
     }, [setAppState]);
-    var talkUrl = get_1(appState.talk, "http_url");
+    var talkTitle = get_1(appState.talk, "title");
     return jsx("div", {
       css: {
         width: 1280,
@@ -6172,13 +6172,32 @@
           verticalAlign: "-0.1em"
         }
       }
-    }), jsx("img", {
+    }), imageBySlug(window.slug || slug) && jsx("img", {
       style: {
         width: "100%",
         position: "absolute"
       },
-      src: imageBySlug(window.title || title)
-    }));
+      src: imageBySlug(window.slug || slug)
+    }), jsx("h1", {
+      css: {
+        color: "gray",
+        height: "100%",
+        textAlign: "center"
+      }
+    }, jsx(Textfit$1, {
+      max: 256,
+      min: 24,
+      style: {
+        lineHeight: 1,
+        position: "absolute"
+      }
+    }, jsx(Twemoji, {
+      options: {
+        className: "emoji",
+        folder: "svg",
+        ext: ".svg"
+      }
+    }, !imageBySlug(window.slug || slug) ? talkTitle : window.slug || slug))));
   };
 
   /** @jsx jsx */

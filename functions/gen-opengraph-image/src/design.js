@@ -40,7 +40,7 @@ const Design = ({props}) => {
       })
   }, [setAppState])
 
-  const talkUrl = get(appState.talk, "http_url")
+  const talkTitle = get(appState.talk, "title")
 
   return (
     <div
@@ -69,14 +69,16 @@ const Design = ({props}) => {
           },
         }}
       />
-      <img
-        style={{width: "100%", position: "absolute"}}
-        src={imageBySlug(window.slug || slug)}
-      />
+      {imageBySlug(window.slug || slug) && (
+        <img
+          style={{width: "100%", position: "absolute"}}
+          src={imageBySlug(window.slug || slug)}
+        />
+      )}
 
       <h1
         css={{
-          color: "white",
+          color: "gray",
           height: "100%",
           textAlign: "center",
         }}
@@ -85,14 +87,14 @@ const Design = ({props}) => {
           max={256}
           min={24}
           style={{
-            minHeight: "80%",
-            maxHeight: "80%",
             lineHeight: 1,
             position: "absolute",
           }}
         >
           <Twemoji options={{className: "emoji", folder: "svg", ext: ".svg"}}>
-            {window.slug || slug}
+            {!imageBySlug(window.slug || slug)
+              ? talkTitle
+              : window.slug || slug}
           </Twemoji>
         </Textfit>
       </h1>
