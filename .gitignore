@@ -34,5 +34,6 @@ public
 cypress/videos
 cypress/screenshots
 .env
+.env.development
 .netlify
 *.ignored*

@@ -1,14 +1,17 @@
 /** @jsx jsx */
+import React from "react"
 import {jsx, Global} from "@emotion/core"
 import Textfit from "react-textfit"
 import {render} from "react-dom"
 import Twemoji from "react-twemoji"
 import queryString from "querystring"
+import get from "lodash/get"
 
 const Design = ({props}) => {
-  const params = queryString.parse(window.location.search)
+  // url params to develop & test locally
   const urlParams = new URLSearchParams(window.location.search)
   const title = urlParams.get("title")
+
   //   console.log(urlParams.get("title"))
   function imageBySlug(slug) {
     switch (slug) {
@@ -20,6 +23,27 @@ const Design = ({props}) => {
         return null
     }
   }
+
+  const [appState, setAppState] = React.useState({
+    loading: false,
+    talk: null,
+  })
+
+  React.useEffect(() => {
+    setAppState({loading: true})
+    const apiUrl = `https://egghead.io/api/v1/lessons/${window.title || title}`
+
+    fetch(apiUrl)
+      .then((res) => res.json())
+      .then((talk) => {
+        setAppState({loading: false, talk: talk})
+      })
+  }, [setAppState])
+
+  //   const {http_url} = appState.talk && appState.talk
+  const talkUrl = get(appState.talk, "http_url")
+  console.log(talkUrl)
+
   return (
     <div
       css={{
@@ -72,6 +96,7 @@ const Design = ({props}) => {
           }}
         >
           <Twemoji options={{className: "emoji", folder: "svg", ext: ".svg"}}>
+            {talkUrl}
             {window.title || title}
           </Twemoji>
         </Textfit>
