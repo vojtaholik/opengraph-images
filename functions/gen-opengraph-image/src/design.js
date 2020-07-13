@@ -5,7 +5,7 @@ import {render} from "react-dom"
 import Twemoji from "react-twemoji"
 import queryString from "querystring"
 
-const Design = () => {
+const Design = ({props}) => {
   const params = queryString.parse(window.location.search)
   const urlParams = new URLSearchParams(window.location.search)
   const title = urlParams.get("title")
@@ -29,6 +29,8 @@ const Design = () => {
         position: "absolute",
         display: "flex",
         overflow: "hidden",
+        // left: 0,
+        // top: 0,
       }}
     >
       <Global
@@ -48,9 +50,13 @@ const Design = () => {
         }}
       />
 
+      <img
+        style={{width: "100%", position: "absolute"}}
+        src={imageBySlug(window.title || title)}
+      />
       <h1
         css={{
-          color: "black",
+          color: "white",
           height: "100%",
           textAlign: "center",
         }}
@@ -62,13 +68,12 @@ const Design = () => {
             minHeight: "80%",
             maxHeight: "80%",
             lineHeight: 1,
+            position: "absolute",
           }}
         >
-          {/* <Twemoji options={{className: "emoji", folder: "svg", ext: ".svg"}}>
-            {window.title}
-          </Twemoji> */}
-          {window.title || title}
-          <img src={imageBySlug(window.title || title)} />
+          <Twemoji options={{className: "emoji", folder: "svg", ext: ".svg"}}>
+            {window.title || title}
+          </Twemoji>
         </Textfit>
       </h1>
     </div>
