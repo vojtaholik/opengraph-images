@@ -62,7 +62,7 @@ function App() {
           {/* <Twemoji options={{className: "emoji", folder: "svg", ext: ".svg"}}>
             {window.title}
           </Twemoji> */}
-          <img src={imageBySlug(window.title)} />
+          {window.title ? <img src={imageBySlug(window.title)} /> : "No Image"}
         </Textfit>
       </h1>
     </div>
