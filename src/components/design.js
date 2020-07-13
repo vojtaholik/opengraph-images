@@ -1,9 +1,10 @@
 /** @jsx jsx */
+import React from "react"
 import {jsx, Global} from "@emotion/core"
 import Textfit from "react-textfit"
 import Twemoji from "react-twemoji"
 
-export default function Design() {
+const Design = () => {
   return (
     <div
       css={{
@@ -57,3 +58,5 @@ export default function Design() {
     </div>
   )
 }
+
+export default Design
