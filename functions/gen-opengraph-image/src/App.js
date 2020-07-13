@@ -1,11 +1,11 @@
 import React from "react"
-import Image from "./image"
+import Design from "./design"
 
 export default function App() {
   return (
     <div className="App">
       Image Design:
-      <Image />
+      <Design />
     </div>
   )
 }
