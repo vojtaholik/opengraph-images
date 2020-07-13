@@ -1,7 +1,7 @@
 {
   "name": "gen-opengraph-image",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "author": "christopherbiscardi <chris@christopherbiscardi.com> (@chrisbiscardi)",
   "license": "MIT",
   "dependencies": {
@@ -10,6 +10,7 @@
     "playwright-core": "^0.11.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-scripts": "3.0.1",
     "react-textfit": "^1.1.0",
     "react-twemoji": "^0.2.3",
     "images-loaded": "1.0.0"
@@ -27,6 +28,7 @@
     "rollup-plugin-node-globals": "^1.4.0"
   },
   "scripts": {
+    "start": "react-scripts start",
     "build": "rollup -c rollup.config.js"
   }
 }
